@@ -56,7 +56,33 @@ p {
     margin: 0;
     width: 100%;
 }
+.welcome {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: #18171f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.esconder {
+    display: none;
+}
+.welcome .Icon {
+    height: 300px;
+    object-fit: contain;
+}
 
+.StartButton {
+    width: max-content;
+    background-color: #ff6600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    margin: 0 auto;
+}
 @media (max-width: 440px) {
     button {
         margin-top: 25px;

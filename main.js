@@ -10,6 +10,8 @@ const right = document.querySelector('#right');
 const vidaSpan = document.querySelector('.vidas');
 const tiempoSpan = document.querySelector('.tiempo');
 const recordSpan = document.querySelector('.record');
+const buttonStart = document.querySelector('.StartButton')
+const divInicio = document.querySelector('.welcome')
 let canvasSize;
 let level = 0;
 let bombas = [];
@@ -54,8 +56,20 @@ document.addEventListener('keydown', (evento) => {
 });
 //
 
-window.addEventListener('load', resizeCanvas);
+buttonStart.addEventListener('click', UserStart);
 window.addEventListener('resize', resizeCanvas);
+function UserStart() {
+    audio.volume = 0.5;
+    audio.play();
+    divInicio.classList.add('esconder')
+    resizeCanvas();
+}
+function startTimeinStart() {
+    if (!timeStart) {
+        timeStart = Date.now();
+        timeInterval = setInterval(showTime, 100);
+    }
+}
 function showLives() {
     vidaSpan.innerHTML = emojis["HEART"].repeat(vidas)
 }
@@ -63,6 +77,7 @@ function showTime() {
     tiempoSpan.innerHTML = Date.now() - timeStart;
 }
 function moveUp() {
+    startTimeinStart();
     if (playerPosition.y > elementSize*2) {
         playerPosition.y -= elementSize;
         startGame();
@@ -70,12 +85,14 @@ function moveUp() {
     }
 }
 function moveDown() {
+    startTimeinStart();
     if (playerPosition.y < (elementSize*10))
     playerPosition.y += elementSize;
     startGame();
     movePlayer();
 }
 function moveLeft() {
+    startTimeinStart();
     if(playerPosition.x > elementSize) {
         playerPosition.x -= elementSize;
         startGame();
@@ -83,6 +100,7 @@ function moveLeft() {
     }
 }
 function moveRight() {
+    startTimeinStart();
     if (playerPosition.x < (elementSize*9)) {
         playerPosition.x += elementSize;
     startGame();
@@ -107,12 +125,6 @@ function clearCanvas() {
 }
 function startGame() {
     recordSpan.innerHTML = localStorage.getItem('record');
-    if (!timeStart) {
-        timeStart = Date.now();
-        timeInterval = setInterval(showTime, 100);
-    }
-    audio.volume = 0.5;
-    audio.play();
     let mapaMejorado = maps[level].trim().split('\n');
     let mapaFinal = mapaMejorado.map(row => row.trim().split(''));
     bombas = [];
